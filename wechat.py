@@ -33,10 +33,8 @@ def wechat_auth():
 		if msgType == 'text':
 			content = xml.find('Content').text
 			msgId = xml.find('MsgId').text
-			kuaidi = {u"zhongtong":"zhongtong", u"yunda":"yunda", u"yuantong":"yuantong",u"shunfeng":"shunfeng", u"shentong":"shentong"}
-			if u"xiaohua" in content:
-				pass
-			elif content[0:2] in kuaidi.keys():
+			kuaidi = {u"中通":"zhongtong", u"韵达":"yunda", u"圆通":"yuantong",u"顺风":"shunfeng", u"申通":"shentong"}
+			if content[0:2] in kuaidi.keys():
 				kuaidi_type = kuaidi.get(content[0:2], '')
 				kuaidi_post = str(content[2:])
 				url = 'https://m.kuaidi100.com/index_all.html?type=%s&postid=%s&callbackurl=[点击"返回"跳转的地址]' % (kuaidi_type, kuaidi_post)
