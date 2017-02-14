@@ -41,41 +41,39 @@ def wechat_auth():
 		if msgType == 'text':
 			content = xml.find('Content').text
 			msgId = xml.find('MsgId').text
-			kuaidi = {u"中通":"zhongtong", u"韵达":"yunda", u"圆通":"yuantong",u"顺风":"shunfeng", u"申通":"shentong"}
-			if content[0:2] in kuaidi.keys():
-				kuaidi_type = kuaidi.get(content[0:2], '')
-				kuaidi_post = str(content[2:])
-				url = 'https://m.kuaidi100.com/index_all.html?type=%s&postid=%s' % (kuaidi_type, kuaidi_post) #&callbackurl=[点击"返回"跳转的地址]
-				reply = '''
-                                        <xml>
-                                        <ToUserName><![CDATA[%s]]></ToUserName>
-                                        <FromUserName><![CDATA[%s]]></FromUserName>
-                                        <CreateTime>%d</CreateTime>
-                                        <MsgType><![CDATA[%s]]></MsgType>
-                                        <Content><![CDATA[%s]]></Content>
-                                        </xml>
-                                ''' % (fromUserName, toUserName, int(time.time()), msgType, url)
-                                return reply
-			else:
-				#encode to utf-8
-				if type(content).__name__ == "unicode":
-					#content = content[::-1]
-					content = content.encode('utf-8')
-				elif type(content).__name__ == "str":
-					print type(content).__name__
-					content = content.decode('utf-8')
-					#content = content[::-1]
-				msg = talk(content, userid)
-				reply = '''
-					<xml>
-					<ToUserName><![CDATA[%s]]></ToUserName>
-					<FromUserName><![CDATA[%s]]></FromUserName>
-					<CreateTime>%d</CreateTime>
-					<MsgType><![CDATA[%s]]></MsgType>
-					<Content><![CDATA[%s]]></Content>
-					</xml>
-				''' % (fromUserName, toUserName, int(time.time()), msgType, msg)
-				return reply
+			#encode to utf-8
+			if type(content).__name__ == "unicode":
+				#content = content[::-1]
+				content = content.encode('utf-8')
+			elif type(content).__name__ == "str":
+				print type(content).__name__
+				content = content.decode('utf-8')
+				#content = content[::-1]
+			msg = talk(content, userid)
+			reply = '''
+				<xml>
+				<ToUserName><![CDATA[%s]]></ToUserName>
+				<FromUserName><![CDATA[%s]]></FromUserName>
+				<CreateTime>%d</CreateTime>
+				<MsgType><![CDATA[%s]]></MsgType>
+				<Content><![CDATA[%s]]></Content>
+				</xml>
+			''' % (fromUserName, toUserName, int(time.time()), msgType, msg)
+			return reply
+		elif msgType == 'voice':
+			content = xml.find('Recognition').text
+			msgId = xml.find('MsgId').text
+                        msg = talk(content, userid)
+                        reply = '''
+                                <xml>
+                                <ToUserName><![CDATA[%s]]></ToUserName>
+                                <FromUserName><![CDATA[%s]]></FromUserName>
+                                <CreateTime>%d</CreateTime>
+                                <MsgType><![CDATA[%s]]></MsgType>
+                                <Content><![CDATA[%s]]></Content>
+                                </xml>
+                        ''' % (fromUserName, toUserName, int(time.time()), 'text', msg)
+                        return reply
 		elif msgType == 'image':
 			picurl = xml.find('PicUrl').text
 			datas = imgtest(picurl)

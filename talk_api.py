@@ -23,5 +23,5 @@ def talk(content, userid):
     elif code == 308000:
         recontent = j['text']+j['list'][0]['info']+j['list'][0]['detailurl']
     else:
-        recontent = '这货还没学会怎么回复这句话'
+        recontent = u'没学会怎么回复这句话'
     return recontent
