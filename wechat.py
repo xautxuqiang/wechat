@@ -1,12 +1,16 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 
-from flask import Flask, request, make_response
+from flask import Flask, request, make_response, redirect, render_template
 import hashlib, time
 import xml.etree.ElementTree as ET
 from imagetest import imgtest
+from form import KuaiDi
+from talk_api import talk
 
 app = Flask(__name__)
+app.config['SECRET_KEY'] = "hello"
+
 
 @app.route('/', methods=['GET','POST'])
 def wechat_auth():
@@ -30,6 +34,7 @@ def wechat_auth():
 		fromUserName = xml.find('FromUserName').text
 		createTime = xml.find('CreateTime').text
 		msgType = xml.find('MsgType').text
+		userid = ''.join(fromUserName.split("_"))
 		if msgType == 'text':
 			content = xml.find('Content').text
 			msgId = xml.find('MsgId').text
@@ -37,8 +42,17 @@ def wechat_auth():
 			if content[0:2] in kuaidi.keys():
 				kuaidi_type = kuaidi.get(content[0:2], '')
 				kuaidi_post = str(content[2:])
-				url = 'https://m.kuaidi100.com/index_all.html?type=%s&postid=%s&callbackurl=[点击"返回"跳转的地址]' % (kuaidi_type, kuaidi_post)
-				return redirect(url)
+				url = 'https://m.kuaidi100.com/index_all.html?type=%s&postid=%s' % (kuaidi_type, kuaidi_post) #&callbackurl=[点击"返回"跳转的地址]
+				reply = '''
+                                        <xml>
+                                        <ToUserName><![CDATA[%s]]></ToUserName>
+                                        <FromUserName><![CDATA[%s]]></FromUserName>
+                                        <CreateTime>%d</CreateTime>
+                                        <MsgType><![CDATA[%s]]></MsgType>
+                                        <Content><![CDATA[%s]]></Content>
+                                        </xml>
+                                ''' % (fromUserName, toUserName, int(time.time()), msgType, url)
+                                return reply
 			else:
 				#encode to utf-8
 				if type(content).__name__ == "unicode":
@@ -48,6 +62,7 @@ def wechat_auth():
 					print type(content).__name__
 					content = content.decode('utf-8')
 					#content = content[::-1]
+				msg = talk(content, userid)
 				reply = '''
 					<xml>
 					<ToUserName><![CDATA[%s]]></ToUserName>
@@ -56,7 +71,7 @@ def wechat_auth():
 					<MsgType><![CDATA[%s]]></MsgType>
 					<Content><![CDATA[%s]]></Content>
 					</xml>
-				''' % (fromUserName, toUserName, int(time.time()), msgType, content)
+				''' % (fromUserName, toUserName, int(time.time()), msgType, msg)
 				return reply
 		elif msgType == 'image':
 			picurl = xml.find('PicUrl').text
@@ -86,11 +101,17 @@ def wechat_auth():
 			return reply
 
 
-@app.route('/make')
+@app.route('/kuaidi', methods=['GET','POST'])
 def make():
-	echostr = "hello"
-	return make_response(echostr)
-
+	form = KuaiDi()
+	kuaidi = {}
+	if form.validate_on_submit():
+		kuaidi_type = form.kuaidi_type.text
+		kuaidi_typenum = kuai.get(kuaidi_type,'')
+		kuaidi_post = form.kuaidi_post.text
+		url = 'https://m.kuaidi100.com/index_all.html?type=%s&postid=%s&callbackurl=[点击"返回"跳转的地址]' % (kuaidi_typenum, kuaidi_post)
+		return redirect("/")
+	return render_template("index.html", form=form)
 
 if __name__ == '__main__':
 	app.run(host='0.0.0.0', port=8080)

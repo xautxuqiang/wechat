@@ -1,9 +1,11 @@
 # -*- coding: utf-8 -*-
 import requests
 import re
+import json
+
 def imgtest(picurl):
 	s = requests.session()
-	url = 'http://how-old.net/Home/Analyze?isTest=False&source=&version=001'
+	url = 'http://how-old.net/Home/Analyze?isTest=False&source=&version=how-old.net'
 	header = {
 		'Accept-Encoding':'gzip, deflate',
 		'User-Agent': "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:34.0) Gecko/20100101 Firefox/34.0",
