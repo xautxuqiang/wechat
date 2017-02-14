@@ -7,10 +7,13 @@ import xml.etree.ElementTree as ET
 from imagetest import imgtest
 from form import KuaiDi
 from talk_api import talk
+from flask_bootstrap import Bootstrap
+
+bootstrap = Bootstrap()
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = "hello"
-
+bootstrap.init_app(app)
 
 @app.route('/', methods=['GET','POST'])
 def wechat_auth():
@@ -76,7 +79,7 @@ def wechat_auth():
 		elif msgType == 'image':
 			picurl = xml.find('PicUrl').text
 			datas = imgtest(picurl)
-			content = "tu zhong ren wu xing bie"+datas[0]+"\n"+"nian ling wei"+datas[1]
+			content = "t图中人物性别为"+datas[0]+"\n"+"年龄为"+datas[1]
 			reply = '''
                                         <xml>
                                         <ToUserName><![CDATA[%s]]></ToUserName>
@@ -104,13 +107,13 @@ def wechat_auth():
 @app.route('/kuaidi', methods=['GET','POST'])
 def make():
 	form = KuaiDi()
-	kuaidi = {}
+	kuaidi = {u"中通":"zhongtong", u"韵达":"yunda", u"圆通":"yuantong",u"顺风":"shunfeng", u"申通":"shentong"}
 	if form.validate_on_submit():
-		kuaidi_type = form.kuaidi_type.text
-		kuaidi_typenum = kuai.get(kuaidi_type,'')
-		kuaidi_post = form.kuaidi_post.text
-		url = 'https://m.kuaidi100.com/index_all.html?type=%s&postid=%s&callbackurl=[点击"返回"跳转的地址]' % (kuaidi_typenum, kuaidi_post)
-		return redirect("/")
+		kuaidi_type = form.kuaidi_type.data
+		kuaidi_typenum = kuaidi.get(kuaidi_type,'')
+		kuaidi_post = form.kuaidi_post.data
+		url = u'https://m.kuaidi100.com/index_all.html?type=%s&postid=%s&callbackurl=[点击"返回"跳转的地址]' % (kuaidi_typenum, kuaidi_post)
+		return redirect(url)
 	return render_template("index.html", form=form)
 
 if __name__ == '__main__':

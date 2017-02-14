@@ -1,11 +1,9 @@
-<html>
-<head>
-<title>test</title>
-</head>
-<body>
-	<form method="POST">
-		{{ form.kuaidi_type.label }}{{ form.kuaidi_type() }}
-		{{ form.submit() }}
-	</form>
-</body>
-</html>
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block page_content %}
+	<div class="col-xs-12 col-md-4">
+		<h2 class="page-header">快递查询</h2>
+		{{ wtf.quick_form(form) }}
+	</div>
+{% endblock %}
