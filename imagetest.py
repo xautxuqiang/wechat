@@ -14,10 +14,10 @@ def imgtest(picurl):
 		'X-Requested-With': "XMLHttpRequest"
 	}
 	
-	data = {'file':s.get(picurl).content}
+	files = {'file':s.get(picurl).content}
 	#此处打开指定的jpg文件
 
-	r = s.post(url, files=data, headers=header)
+	r = s.post(url, files=files, headers=header)
 	h = r.content
 	i = h.replace('\\','')
 	#j = eval(i)

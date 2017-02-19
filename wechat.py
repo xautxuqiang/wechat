@@ -77,7 +77,7 @@ def wechat_auth():
 		elif msgType == 'image':
 			picurl = xml.find('PicUrl').text
 			datas = imgtest(picurl)
-			content = "t图中人物性别为"+datas[0]+"\n"+"年龄为"+datas[1]
+			content = "图中人物性别为"+datas[0]+"\n"+"年龄为"+datas[1]
 			reply = '''
                                         <xml>
                                         <ToUserName><![CDATA[%s]]></ToUserName>
@@ -115,4 +115,4 @@ def make():
 	return render_template("index.html", form=form)
 
 if __name__ == '__main__':
-	app.run(host='0.0.0.0', port=8080)
+	app.run('0.0.0.0',8080)
