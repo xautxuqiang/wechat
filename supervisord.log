@@ -185,3 +185,45 @@
 2017-02-19 20:40:18,548 INFO spawned: 'wechat' with pid 7957
 2017-02-19 20:40:18,557 INFO exited: wechat (exit status 1; not expected)
 2017-02-19 20:40:19,558 INFO gave up: wechat entered FATAL state, too many start retries too quickly
+2017-02-20 13:35:35,778 CRIT Supervisor running as root (no user in config file)
+2017-02-20 13:35:35,799 INFO daemonizing the supervisord process
+2017-02-20 13:35:35,800 INFO supervisord started with pid 945
+2017-02-20 13:35:36,802 INFO spawned: 'wechat' with pid 946
+2017-02-20 13:35:36,808 INFO spawned: 'minion_blog' with pid 947
+2017-02-20 13:35:36,819 INFO exited: wechat (exit status 1; not expected)
+2017-02-20 13:35:36,825 INFO exited: minion_blog (exit status 1; not expected)
+2017-02-20 13:35:37,827 INFO spawned: 'wechat' with pid 949
+2017-02-20 13:35:37,828 INFO spawned: 'minion_blog' with pid 950
+2017-02-20 13:35:37,844 INFO exited: minion_blog (exit status 1; not expected)
+2017-02-20 13:35:37,845 INFO exited: wechat (exit status 1; not expected)
+2017-02-20 13:35:39,848 INFO spawned: 'wechat' with pid 952
+2017-02-20 13:35:39,850 INFO spawned: 'minion_blog' with pid 953
+2017-02-20 13:35:39,865 INFO exited: minion_blog (exit status 1; not expected)
+2017-02-20 13:35:39,866 INFO exited: wechat (exit status 1; not expected)
+2017-02-20 13:35:42,871 INFO spawned: 'wechat' with pid 955
+2017-02-20 13:35:42,872 INFO spawned: 'minion_blog' with pid 956
+2017-02-20 13:35:42,887 INFO exited: wechat (exit status 1; not expected)
+2017-02-20 13:35:42,888 INFO gave up: wechat entered FATAL state, too many start retries too quickly
+2017-02-20 13:35:42,888 INFO exited: minion_blog (exit status 1; not expected)
+2017-02-20 13:35:43,890 INFO gave up: minion_blog entered FATAL state, too many start retries too quickly
+2017-02-20 19:54:43,720 CRIT Supervisor running as root (no user in config file)
+2017-02-20 19:54:43,724 INFO daemonizing the supervisord process
+2017-02-20 19:54:43,724 INFO supervisord started with pid 1385
+2017-02-20 19:54:44,727 INFO spawned: 'wechat' with pid 1386
+2017-02-20 19:54:44,728 INFO spawned: 'minion_blog' with pid 1387
+2017-02-20 19:54:44,746 INFO exited: minion_blog (exit status 1; not expected)
+2017-02-20 19:54:44,746 INFO exited: wechat (exit status 1; not expected)
+2017-02-20 19:54:45,748 INFO spawned: 'wechat' with pid 1388
+2017-02-20 19:54:45,750 INFO spawned: 'minion_blog' with pid 1389
+2017-02-20 19:54:45,768 INFO exited: minion_blog (exit status 1; not expected)
+2017-02-20 19:54:45,768 INFO exited: wechat (exit status 1; not expected)
+2017-02-20 19:54:47,772 INFO spawned: 'wechat' with pid 1390
+2017-02-20 19:54:47,774 INFO spawned: 'minion_blog' with pid 1391
+2017-02-20 19:54:47,791 INFO exited: minion_blog (exit status 1; not expected)
+2017-02-20 19:54:47,791 INFO exited: wechat (exit status 1; not expected)
+2017-02-20 19:54:50,796 INFO spawned: 'wechat' with pid 1392
+2017-02-20 19:54:50,798 INFO spawned: 'minion_blog' with pid 1393
+2017-02-20 19:54:50,812 INFO exited: wechat (exit status 1; not expected)
+2017-02-20 19:54:50,813 INFO gave up: wechat entered FATAL state, too many start retries too quickly
+2017-02-20 19:54:50,814 INFO exited: minion_blog (exit status 1; not expected)
+2017-02-20 19:54:51,815 INFO gave up: minion_blog entered FATAL state, too many start retries too quickly

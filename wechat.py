@@ -30,6 +30,7 @@ def wechat_auth():
 		s = ''.join(s)
 		if hashlib.sha1(s).hexdigest() == signature:
 			return make_response(echostr)
+	
 	if request.method == 'POST':
 		xml_str = request.stream.read()
 		xml = ET.fromstring(xml_str)
